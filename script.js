@@ -1,5 +1,5 @@
 //page selectors
-var hiScoreEl = document.querySelector(".highscore");
+var hiScoreEl = document.querySelector(".highscore"); //highScoresLink
 var questionTimerEl = document.querySelector("#scoreTimer");
 var timerSxn = document.querySelector("#timers");
 var mainEl = document.querySelector("#quizcomponents");
@@ -10,6 +10,8 @@ var score = 0;
 
 var initialTime;
 var timeRemain;
+
+
 
 //quiz question array
 var questionArray = [
@@ -121,14 +123,14 @@ showInstructions();
 function showInstructions () {
     
     clearInput(); 
-
+//instructions for game. should load immediately
     let headingInst = document.createElement("p");
     
     headingInst.textContent = "Welcome to an advanced assessment of the Marvel Cinematic Universe."
 
     let bodyInst = document.createElement("p");
     
-    bodyInst.textContent = "You have 200 seconds to complete 20 questions. Final score is calculated from your time remaining. Correct answers progress you through the test. Incorrect answers penalize you time. The faster you finish, the higher your score. Best of luck, true believer!"
+    bodyInst.textContent = "You have 150 seconds to complete 20 questions. Final score is calculated from your time remaining. Correct answers progress you through the test. Incorrect answers penalize you time. The faster you finish, the higher your score. Best of luck, true believer!"
 
     //make button to start quiz game
     let startQuiz = document.createElement("button");
@@ -159,7 +161,7 @@ function playQuiz() {
     timerSxn.setAttribute("style", "visibility: visible;");
 
     //start timer
-    initialTime = 200;
+    initialTime = 150;
     //gameDuration = gameSeconds;
 
     quiz = pullRandomQuestion(questionArray);
@@ -181,6 +183,40 @@ function pullRandomQuestion(arr) {
     return retRandomQuestion;
 }
 
+function startGameTimer() {
+    //cancels timed setInterval and sets time for game start
+    
+    //starts clock moving
+    timeRemain = setInterval(function() {
+       console.log(initialTime);
+       initialTime--;
+
+       questionTimerEl.textContent = initialTime + ' secs';
+       
+       if (initialTime <= 0) {
+        clearInterval(timeRemain);
+        questionTimerEl.textContent = "150 secs";
+       
+        let retry = confirm("Game over. But you know the saying, 'If at first you don't succeed, bargain, bargain again with Dormammu...");
+
+        if (retry) {
+        
+            retRandomQuestion = 0;
+            playQuiz();
+        
+        } else {
+
+            retRandomQuestion = 0; 
+            return;
+        }
+       
+
+    }}, 1000);
+
+
+    showInstructions();
+}
+
 function presentQuestions() {
 
     if (quiz.length === 0 || initialTime == 0) {
@@ -188,6 +224,7 @@ function presentQuestions() {
         gameFinished();
         return;
     }
+    
 
     //selected question is popped out of array, making it current object on page
     selectedQuestion = quiz.pop();
@@ -219,7 +256,8 @@ function presentQuestions() {
     choiceBody.addEventListener("click", function () {
         scoreAnswer();
     })
-}
+}  
+
 
 
 
@@ -244,36 +282,9 @@ function scoreAnswer(e) {
     }
 }
 
-function startGameTimer() {
-    //cancels timed setInterval and sets time for game start
-    
-    //starts clock moving
-    timeRemain = setInterval(function() {
-       console.log(initialTime);
-       initialTime--;
-
-       questionTimerEl.textContent = initialTime + ' secs';
-       
-       if (initialTime <= 0) {
-        
-        questionTimerEl.textContent = "200 secs";
-        retRandomQuestion = 0;
-        alert("Game over. But you know the saying, 'If at first you don't succeed, bargain, bargain again with Dormammu...");
-
-        //if this is removed, time will continue to go into negatives and alert will perpetuate.
-        clearInterval(timeRemain);
-
-        return;
-       
-
-    }}, 1000);
-
-
-    showInstructions();
-}
-
-
 function gameFinished() {
+
+    console.log("gamefinished is functioning")
     
     clearInput();
 
@@ -300,7 +311,7 @@ function gameFinished() {
     let initLabel = document.createElement('label');
     initLabel.textContent = "Enter your Initials: "
 
-    let initUser = document.createElement("userinput");
+    let initUser = document.createElement("input");
     initUser.setAttribute('size', '3');
     initUser.setAttribute('minlength', '3');
     initUser.setAttribute('maxlength', '3');
@@ -332,7 +343,9 @@ function gameFinished() {
 }
 
 function highScores() {
-    clearInterval(timeRemain);
+    //clearInterval(timeRemain);
+
+    console.log("highscores is working rn")
     //clears body of page, hides timer
     clearInput();
 
@@ -340,11 +353,48 @@ function highScores() {
     //getting scores from storage
     let archivedScores = JSON.parse(localStorage.getItem("highScores"));
 
-    let heading = document.createElement('h1');
+    let heading = document.createElement('h2');
     heading.textContent = "Asgardian High Score Hall of Valhalla";
 
+    mainEl.appendChild(heading);
 
+    if (archivedScores !== null) {
+
+        archivedScores.sort((a,b) => {
+            return b.score - a.score
+        })
+        //display scores at 10 max;
+        let scoresDisplayed = 10;
+        if (archivedScores.length < 10) {
+            scoresDisplayed = archivedScores.length;
+        }
+
+        for (i=0; i < scoresDisplayed; i++) {
+        
+            var a = archivedScores[i];
+
+            var list = document.createElement("p");
+            list.textContent = a.name + " " + list.score;
+            mainEl.appendChild(list);
+        }
+       
+    } else {
+            var list = document.createElement("p");
+            list.textContent = "Enter Your Initials:";
+            mainEl.appendChild(list);
+        }
+
+
+    var letsPlay = document.createElement("button");
+    letsPlay.setAttribute("class", "btn-btn-secondary");
+    letsPlay.textContent = "Let's Play!";
+
+    mainEl.appendChild(letsPlay);
+
+    letsPlay.addEventListener("click", showInstructions);
 
 }
+
+hiScoreEl.addEventListener("click", highScores());
 
 
