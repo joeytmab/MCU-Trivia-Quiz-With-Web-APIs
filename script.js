@@ -284,11 +284,11 @@ function scoreAnswer(e) {
 
 function gameFinished() {
 
-    console.log("gamefinished is functioning")
+    console.log("gamefinished is functioning");
+
+     clearInterval(timeRemain)
     
     clearInput();
-
-    clearInterval(timeRemain)
 
     
     timerSxn.setAttribute("style", "visibility: hidden;");
