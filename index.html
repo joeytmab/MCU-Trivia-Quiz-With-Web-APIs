@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>MCU Trivia Quiz</title>
+</head>
+<body>
+    <!--Header-->
+    <nav class="navbar navbar-expand-md fixed-top">
+      <div class="container-fluid">
+        <a class="highscore" href="#">
+            <img src="./assets/capshield.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Today's High Scores
+          </a>
+        <h1 id="navbar-title">MCU Trivia Quiz!</h1>
+            <table id=timers style="visibility: hidden;">
+              <tr>
+                <td>Time left:</td>
+                <td> <span id="scoreTimer" class="nav-item"></span> </td>
+              </tr>
+            </table>
+        </div>
+      </div>
+    </nav>
+    
+    <!--quiz itself-->
+    <div class="container-fluid">
+      <!-- need a place for the intro instructions and quiz -->
+      <section id="quizcomponents"> </section>
+    </div>
+  
+
+  <!--footer-->
+    <nav class="navbar fixed-bottom footer">
+        <div class="footer-text">Footer Text</div>
+    </nav>
+  
+
+    <!--Javascript file containing questions and quiz components-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src='./script.js'></script>
+
+  </body>
+</html>
