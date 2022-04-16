@@ -20,42 +20,8 @@ var questionArray = [
         choices: ["Jon Voight", "Guy Pearce", "Jeremy Irons", "James Spader"],
         answer: "James Spader"
       },
-    {
-        questheading: "What video game does Thor play during Avengers: Endgame?",
-        choices: ["LoL", "Apex Legends", "Fortnite", "Call of Duty"],
-        answer: "Fortnite"
-      },
-    {
-        questheading: "The Infinity Gauntlet contains 6 stones. Which is orange?",
-        choices: ["Soul", "Mind", "Space", "Reality"],
-        answer: "Soul"
-      },
-    {
-        questheading: "What is the Winter Soldier's first name?",
-        choices: ["Steven", "Jack", "James", "Bucky"],
-        answer: "James"
-      },
-    {
-        questheading: "According to Iron Man films, what fruit is Pepper Potts allergic to?",
-        choices: ["pears", "blueberries", "strawberries", "raspberries"],
-        answer: "strawberries"
-      },
-    {
-        questheading: "The Battle of New York in Avengers (2012) reminded Black Widow of an operation with Hawkeye where?",
-        choices: ["Sokovia", "Budapest", "Moscow", "Columbia"],
-        answer: "Budapest"
-      },
-    {
-        questheading: "What movie does Clint Barton make his first MCU appearance?",
-        choices: ["Incredible Hulk", "Captain America", "Iron Man", "Thor"],
-        answer: "Thor"
-      },
-    {
-        questheading: "The Tesseract is known as what other Infinity Stone?",
-        choices: ["space", "mind", "power", "time"],
-        answer: "space"
-      },
-    {
+
+      {
         questheading: "What was the name of Tony Stark's most current AI?",
         choices: ["E.D.I.T.H.", "J.A.R.V.I.S.", "J.O.C.A.S.T.A.", "F.R.I.D.A.Y."],
         answer: "F.R.I.D.A.Y."
@@ -115,12 +81,50 @@ var questionArray = [
         choices: ["the Enforcer", "the Unsullied", "the Accuser", "the Destroyer"],
         answer: "the Destroyer"
       }, 
+    {
+        questheading: "What video game does Thor play during Avengers: Endgame?",
+        choices: ["LoL", "Apex Legends", "Fortnite", "Call of Duty"],
+        answer: "Fortnite"
+      },
+    {
+        questheading: "The Infinity Gauntlet contains 6 stones. Which is orange?",
+        choices: ["Soul", "Mind", "Space", "Reality"],
+        answer: "Soul"
+      },
+    {
+        questheading: "What is the Winter Soldier's first name?",
+        choices: ["Steven", "Jack", "James", "Bucky"],
+        answer: "James"
+      },
+    {
+        questheading: "According to Iron Man films, what fruit is Pepper Potts allergic to?",
+        choices: ["pears", "blueberries", "strawberries", "raspberries"],
+        answer: "strawberries"
+      },
+    {
+        questheading: "The Battle of New York in Avengers (2012) reminded Black Widow of an operation with Hawkeye where?",
+        choices: ["Sokovia", "Budapest", "Moscow", "Columbia"],
+        answer: "Budapest"
+      },
+    {
+        questheading: "What movie does Clint Barton make his first MCU appearance?",
+        choices: ["Incredible Hulk", "Captain America", "Iron Man", "Thor"],
+        answer: "Thor"
+      },
+    {
+        questheading: "The Tesseract is known as what other Infinity Stone?",
+        choices: ["space", "mind", "power", "time"],
+        answer: "space"
+      },
+    
 ]
 
 showInstructions();
 
 //heading will incorporate question, body will have the answers. template for layout
 function showInstructions () {
+
+    console.log("showinstructions are working")
     
     clearInput(); 
 //instructions for game. should load immediately
@@ -193,33 +197,24 @@ function startGameTimer() {
 
        questionTimerEl.textContent = initialTime + ' secs';
        
-       if (initialTime <= 0) {
+       if (initialTime < 1) {
         clearInterval(timeRemain);
-        questionTimerEl.textContent = "150 secs";
+        //questionTimerEl.textContent = "150 secs";
        
-        let retry = confirm("Game over. But you know the saying, 'If at first you don't succeed, bargain, bargain again with Dormammu...");
+      alert("Game over. But you know the saying, 'If at first you don't succeed, bargain, bargain again with Dormammu...");
 
-        if (retry) {
-        
-            retRandomQuestion = 0;
-            playQuiz();
-        
-        } else {
-
-            retRandomQuestion = 0; 
-            return;
-        }
-       
+      gameFinished();
+            
 
     }}, 1000);
-
-
     showInstructions();
-}
+  }
 
+  //function for presenting questions from the questionArray
 function presentQuestions() {
 
-    if (quiz.length === 0 || initialTime == 0) {
+  //conditions if either quiz if finished or time is over
+    if (quiz.length === 0 || initialTime < 1) {
         
         gameFinished();
         return;
@@ -262,7 +257,7 @@ function presentQuestions() {
 
 
 
-
+//fxn alerting user of correct and wrong answers = contributes to their score
 function scoreAnswer(e) {
     
     var e = event.target;
@@ -282,26 +277,28 @@ function scoreAnswer(e) {
     }
 }
 
+//end game function
 function gameFinished() {
 
     console.log("gamefinished is functioning");
-
+//clear html input and clearing time intervals
      clearInterval(timeRemain)
     
     clearInput();
 
-    
+    //removes timer with game ending
     timerSxn.setAttribute("style", "visibility: hidden;");
 
     //score = initialTime;
 
-    let headingInst = document.createElement("p");
-    headingInst.setAttribute("id", "main-heading");
-    headingInst.textContent = "Game Over. Thanks for playing! Hopefully you got at least half right....that's a passing grade in Thanos' eyes...#sarcasm"
+    //create container containing message, final score, and input for user to enter initials
+    let heading = document.createElement("p");
+    heading.setAttribute("id", "main-heading");
+    heading.textContent = "Welcome back, true believer!. Thanks for playing! Hopefully you got at least half right....that's a passing grade in Thanos' eyes...#sarcasm"
 
-    let bodyInst = document.createElement("p");
-    bodyInst.setAttribute("id", "instructions");
-    bodyInst.textContent = "Final score: " + [initialTime];
+    let body = document.createElement("p");
+    body.setAttribute("id", "instructions");
+    body.textContent = "Final score: " + initialTime;
 
     let replayButton = document.createElement('button');
     replayButton.setAttribute("class", "btn-btn-primary");
@@ -311,28 +308,32 @@ function gameFinished() {
     let initLabel = document.createElement('label');
     initLabel.textContent = "Enter your Initials: "
 
-    let initUser = document.createElement("input");
-    initUser.setAttribute('size', '3');
-    initUser.setAttribute('minlength', '3');
-    initUser.setAttribute('maxlength', '3');
+    let userInput = document.createElement("input");
+    userInput.setAttribute('size', '3');
+    userInput.setAttribute('minlength', '3');
+    userInput.setAttribute('maxlength', '3');
 
-    mainEl.appendChild(headingInst);
-    mainEl.appendChild(bodyInst);
+    mainEl.appendChild(heading);
+    mainEl.appendChild(body);
     mainEl.appendChild(initLabel);
-    mainEl.appendChild(initUser);
+    mainEl.appendChild(userInput);
     mainEl.appendChild(initDiv);
     mainEl.appendChild(replayButton);
 
-    replayButton.addEventListener("click", showInstructions());
+    replayButton.addEventListener("click", showInstructions);
 
-    initUser.addEventListener("input", function() {
-        if (initDiv.value.length === 3) {
-            let currScore = [{ name: initUser.value, score: score }];
+    userInput.addEventListener("input", function() {
+//when length of initials is 3, values are saved and pushed to local storage 
+        if (userInput.value.length === 3) {
+            let currScore = [{ name: userInput.value, score: initialTime }];
             //getting scores from storage
             let archivedScores = JSON.parse(localStorage.getItem("highScores"));
 
             if (archivedScores !== null) {
                 archivedScores.push(currScore[0])
+            
+            } else {
+                archivedScores = currScore;
             }
 
             localStorage.setItem("highScores", JSON.stringify(archivedScores));
@@ -360,9 +361,7 @@ function highScores() {
 
     if (archivedScores !== null) {
 
-        archivedScores.sort((a,b) => {
-            return b.score - a.score
-        })
+        archivedScores.sort((a,b) => (a.score < b.score) ? 1: -1);
         //display scores at 10 max;
         let scoresDisplayed = 10;
         if (archivedScores.length < 10) {
@@ -374,7 +373,7 @@ function highScores() {
             var a = archivedScores[i];
 
             var list = document.createElement("p");
-            list.textContent = a.name + " " + list.score;
+            list.textContent = a.name + " " + a.score;
             mainEl.appendChild(list);
         }
        
@@ -384,7 +383,7 @@ function highScores() {
             mainEl.appendChild(list);
         }
 
-
+//button to restart quiz at high score tab
     var letsPlay = document.createElement("button");
     letsPlay.setAttribute("class", "btn-btn-secondary");
     letsPlay.textContent = "Let's Play!";
@@ -394,7 +393,7 @@ function highScores() {
     letsPlay.addEventListener("click", showInstructions);
 
 }
-
-hiScoreEl.addEventListener("click", highScores());
+//button for high score link at top of page
+hiScoreEl.addEventListener("click", highScores);
 
 
