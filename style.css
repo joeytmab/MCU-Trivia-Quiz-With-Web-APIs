@@ -96,3 +96,26 @@ body {
     font-size: 18px;
     color:rgb(7, 7, 7); 
   }
+
+  /* media query for screen size phones */
+@media (max-width: 768px) {
+  .container-fluid {
+    /* removes paddding on either side */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+
+  li {
+    border-right: none;
+  }
+
+
+  .nav-link{
+    padding: 2px;
+  }
+
+  .footer {
+    height: 15%;
+  }
+}
