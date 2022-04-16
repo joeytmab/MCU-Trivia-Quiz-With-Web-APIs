@@ -271,7 +271,7 @@ function scoreAnswer(e) {
         let clickedItem = e.textContent;
         if (clickedItem !== selectedQuestion.answer) {
             alert("Wrong. Thanos is not pleased.");
-            initialTime -= 20;
+            initialTime -= 15;
         } else if (clickedItem == selectedQuestion.answer) {
             alert("Good job. You've been doing your research.")
         } else {
@@ -343,7 +343,7 @@ function gameFinished() {
 }
 
 function highScores() {
-    //clearInterval(timeRemain);
+    clearInterval(timeRemain);
 
     console.log("highscores is working rn")
     //clears body of page, hides timer
