@@ -268,6 +268,7 @@ function startGameTimer() {
 
     }}, 1000);
 
+
     showInstructions();
 }
 
