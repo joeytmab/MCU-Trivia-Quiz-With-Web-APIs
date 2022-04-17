@@ -1,0 +1,127 @@
+body {
+    /* image for background */
+    background-image: url("./assets/ironmanminimalist.jpg");
+    background-size: cover;
+
+  
+    /* font parameters */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.25em;
+  
+    /* added padding to prevent overlap*/
+    padding-top: 90px;
+  }
+  
+  button {
+    margin: 2em;
+  }
+  
+  .navbar {
+    background-color: #d12b0d;  
+    color: white;  
+    border-bottom: solid;
+    border-bottom-color: rgb(255, 255, 255);
+    width: 100%;
+  }
+  
+  #navbar-title {
+    padding: 15px;
+    font-size: 36px;
+    color: #fff;
+  }
+  
+  /* container for nav header */
+  .container-fluid {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  
+  
+  .nav-link:hover {
+    background-color: #62afc9;  
+    color: rgb(211, 102, 102);
+  }
+  
+  #quizcomponents {
+    background-color: #a0a1a1;  
+    /* provides spacing between the top and bottom nav bars and the content */
+    margin-top: 20px;
+    margin-bottom: 80px;
+  
+    /*text spacing*/
+    padding: 40px;
+    font-size: .2 em;
+  } 
+   
+  
+  li {
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #72a3e2;
+    color: #fff;
+    font-size: 1.5em;
+    line-height: 1.5;
+    list-style-type: none;
+  }
+  
+  li:hover {
+    background-color: #9e9268;
+  }
+  
+  #answer-image {
+    float: left;
+    padding-right: 1em;
+    padding-top: 0.25em;
+  }
+  
+  .footer {
+    /* set text properties */
+    background-color: rgb(255, 230, 5);
+    
+    /* sets height of footer*/
+    height: 8%;
+    
+    /* sets properties for footer border*/
+    border-top: solid;
+    border-top-color: #ffffff;  
+    border-top-width: 8px;
+  }
+  
+  .footer-text {
+    /* forces text across the entire screen so it has a center */
+    width: 100%;
+    text-align: center;
+  
+    font-size: 18px;
+    color:rgb(7, 7, 7); 
+  }
+
+  /* media query for screen size phones */
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+  
+  .container-fluid {
+    /* removes paddding on either side */
+    padding-left: 0;
+    padding-right: 0;
+    height: 5%;
+  }
+
+
+  li {
+    border-right: none;
+  }
+
+
+  .nav-link{
+    padding: 2px;
+  }
+
+  .footer {
+    height: 15%;
+  }
+}
